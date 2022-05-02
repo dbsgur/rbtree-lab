@@ -118,29 +118,30 @@ int erase(btree *t, Node * node){
     // 삭제할 노드 트리에 존재하지 않음
     return 0;
   }
+  Node * parent = node->p;
   if(node->left == NULL && node ->right == NULL){ // 차수가 0
     // *node = NULL; // 안됨 ->이유좀 -> 도영
-    if(node -> p == NULL){
+    if(parent == NULL){
       t->root = NULL;
     }
     else{
-      if(node->p->left == node){
-        node->p->left = NULL;
+      if(parent->left == node){
+        parent->left = NULL;
       }else{
-        node->p->right = NULL;
+        parent->right = NULL;
       }
     }
   }
   else if(node->left == NULL || node->right == NULL) // 차수가 1
   {
     Node * child = (node->left != NULL) ? node->left : node->right;
-    if(node->p == NULL){
+    if(parent == NULL){
       t->root = child;
     }else{
-      if(node->p->left == node){
-        node->p->left = child;
+      if(parent->left == node){
+        parent->left = child;
       }else{
-        node->p->right = child;
+        parent->right = child;
       }
     }
   }else{ // 차수가 2이상 후계자 찾기 -> 오른쪽
