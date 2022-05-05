@@ -163,10 +163,13 @@ node_t *rbtree_find(const rbtree *t, const key_t key) {
       curr = curr->right;
     }
   }
-  if (curr->key == key ){
-    return curr;
+  if (curr == t->nil){
+    return NULL;
   }
-  return NULL;
+  // if (curr->key == key ){
+    return curr;
+  // }
+  // return NULL;
 }
 
 node_t *rbtree_min(const rbtree *t) {
